@@ -134,7 +134,7 @@ body {
 }
 
 .title-container img {
-  width: 70px; /* Adjust image width as needed */
+  width: 100px; /* Adjust image width as needed */
   margin-right: 10px; /* Adjust margin as needed */
 }
 
@@ -145,7 +145,7 @@ body {
 .top-section {
   align-items: center;
   justify-content: center;
-  margin-bottom: 0px;
+  margin-bottom: 5px;
 }
 
 #p-bottom-section {
@@ -235,26 +235,47 @@ body {
 }
 
 .footer {
-  text-align: center; /* Aligning the text and icons to the center */
-  margin-top: 25px;
+  display: flex;
+  justify-content: center; /* Horizontally center content */
+  align-items: center; /* Vertically center content */
+  height: 50px;
+  margin-top: 50px;
 }
+
+.footer-icons {
+  display: flex;
+  align-items: center; /* Center content vertically */
+}
+
+.footer-icons span {
+  margin: 0 5px; /* Adjust spacing */
+}
+
 
 .footer p {
   margin: 0; /* Removing margin for the text */
 }
 
-.footer-icons {
-  margin-top: 10px; /* Adding some space between the text and icons */
-}
 
 .footer-icons a {
   display: inline-block; /* Displaying icons inline */
-  margin: 0 10px; /* Adding space between icons */
+  margin-left: 5px; /* Adding space between icons */
+  margin-right: 5px; /* Adding space between icons */
 }
 
 .footer-icons img {
-  width: 30px; /* Setting width of icons */
+  width: 25px; /* Setting width of icons */
   height: auto; /* Maintaining aspect ratio */
+}
+
+.footer-text {
+  font-size: 15px;
+}
+
+.separator {
+  border-left: 1px solid black; /* Vertical line */
+  height: 30px; /* Adjust height as needed */
+  margin-right: 50px;
 }
 
 .rednotification, .yellownotification, .greennotification {
@@ -288,4 +309,9 @@ body {
 #rednotificationText, #yellownotificationText, #greennotificationText {
   color: #f2f2f2;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 1); /* Horizontal shadow, Vertical shadow, Blur radius, Shadow color */
+}
+
+.pieTitle {
+  margin-bottom: 5px;
+  margin-top: -20px;
 }

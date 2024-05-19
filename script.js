@@ -1,16 +1,16 @@
 var malUsername = "";
 var selectedGenreId = 0;
-var watching = 0;
-var completed = 0;
-var on_hold = 0;
-var dropped = 0;
-var plan_to_watch = 0;
-var unexplored = 0;
+var watching = 1;
+var completed = 1;
+var on_hold = 1;
+var dropped = 1;
+var plan_to_watch = 1;
+var unexplored = 1;
 var explored_ids;
 var watching_array = [];
 var completed_array = [];
 var on_hold_array = [];
-var dropped_hold_array = [];
+var dropped_array = [];
 var plan_to_watch_array = [];
 var unexplored_array = [];
 
@@ -18,17 +18,26 @@ var data = {
     labels: ['Watching', 'Completed', 'On-Hold', 'Dropped', 'Plan to Watch', 'Unexplored'],
     datasets: [{
         data: [watching, completed, on_hold, dropped, plan_to_watch, unexplored],
-        backgroundColor: ['red', 'blue', 'green', 'yellow', 'orange', 'purple']
+        backgroundColor: ['green', 'blue', 'yellow', 'red', 'gray', 'purple'],
+        weight: 0.1
     }]
 };
 
 var options = {
     responsive: false,
     onClick: (e, activeEls) => {
+        if (!activeEls || activeEls.length === 0) {
+            return;}
         let datasetIndex = activeEls[0].datasetIndex;
         let dataIndex = activeEls[0].index;
+
+        if (datasetIndex === undefined || dataIndex === undefined) {
+            return;}
         let value = e.chart.data.datasets[datasetIndex].data[dataIndex];
         let label = e.chart.data.labels[dataIndex];
+        
+        if (value === undefined || value === 0) {
+            return;}
         clickPie(label.toLowerCase() === 'on-hold' ? 'on_hold' : label.toLowerCase() === 'plan to watch' ? 'plan_to_watch' : label.toLowerCase());
     },
     plugins: {
@@ -195,6 +204,7 @@ async function submitButton() {
     }
 
     document.getElementById('loadingScreen').style.display = 'flex';
+    var selectedGenreName = select.options[select.selectedIndex].text;
     selectedGenreId = document.getElementById("genres").value;
 
     try {
@@ -202,7 +212,7 @@ async function submitButton() {
         if (response.status === 500) {
             document.getElementById('loadingScreen').style.display = 'none';
             setTimeout(() => {
-                var message = malUsername + "is not a valid MyAnimeList username.";
+                var message = malUsername + " is not a valid MyAnimeList username.";
                 var rednotification = document.getElementById('rednotification');
                 var rednotificationText = document.getElementById('rednotificationText');
                 rednotificationText.textContent = message || "Default notification message";
@@ -233,11 +243,30 @@ async function submitButton() {
         unexplored = genre_total - Object.values(profile_genre_total.counts).reduce((total, count) => total + count, 0);
         explored_ids = profile_genre_total.explored;
         
-        myPieChart.data.datasets[0].data = [watching, completed, on_hold, dropped, plan_to_watch, unexplored];
-        myPieChart.update();
+        function updatePieChartData(chart, data) {
+            chart.data.datasets[0].data = data;
+            chart.update();
+        }
+        
+        var initialData = [watching, completed, on_hold, dropped, plan_to_watch, unexplored];
+        var pieTitleElement = document.querySelector('.pieTitle');
+        pieTitleElement.textContent = selectedGenreName + " Stats";
 
+        var animationDelay = 1000; 
+        var updatedData = Array(initialData.length).fill(0); 
+
+        initialData.forEach((value, index) => {
+            setTimeout(() => {
+                updatedData[index] = value;
+                updatePieChartData(myPieChart, updatedData);
+                if (index === initialData.length - 1) {
+                    pieTitleElement.textContent = selectedGenreName + " Stats";
+                }
+            }, (index + 1) * animationDelay);
+        });
+        
         getAnimeTitles();
-
+        
     } catch (error) {
         console.error('Error fetching profile stats:', error.message);
     }

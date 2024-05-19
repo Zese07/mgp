@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pie Chart Example</title>
+  <link rel="stylesheet" href="styles.css"> <!-- External CSS for styling -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+  <script src="./get/jikan.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="title-container">
+      <div class="top-section">
+        <img src="shinobu.png" alt="Image">
+        <h1 id="title">MAL Genre Pie</h1>
+      </div>
+      <p id="p-bottom-section">Displays your anime statistics in MyAnimeList according to the genre.</p>
+  </div>
+    
+      
+  <div class="form-container">
+    <input type="text" id="malUsernameInput" placeholder="Enter your MyAnimeList username" required>
+    <select name="genres" id="genres">
+    </select>
+    <input type="submit" value="Go" onclick="submitButton()">
+  </div>
+    <canvas id="myPieChart" height="400"></canvas>
+  
+    <div class="footer">
+      
+      <div class="footer-icons">
+        <a href="https://github.com/Zese07/MAL-Genre-Pie" target="_blank"><img src="./github.png" alt="GitHub"></a>
+        <a href="https://myanimelist.net/apiconfig/references/api/v2" target="_blank"><img src="./mal.png" alt="MyAnimeList"></a>
+        <a href="https://jikan.moe/" target="_blank"><img src="./jikan.png" alt="Jikan"></a>
+      </div>
+    </div>    
+
+</div>
+
+  <div class="loading-screen" id="loadingScreen">
+    <span class="loading-text">Loading...</span>
+    <img class="loading-image" src="loading.gif" alt="Loading">
+  </div>
+
+  <div id="myModal" class="modal" style="display: none;">
+    <div class="modal-content" style="width: 400px;">
+        <span class="close">&times;</span>
+        <h2 id="modalLabel"></h2>
+        <ul id="modalContent"></ul>
+    </div>
+  </div>
+
+<div id="rednotification" class="rednotification">
+  <span id="rednotificationText"></span>
+</div>
+
+<div id="yellownotification" class="yellownotification">
+  <span id="yellownotificationText"></span>
+</div>
+
+<div id="greennotification" class="greennotification">
+  <span id="greennotificationText"></span>
+</div>
+
+  <script src="script.js"></script> <!-- External JavaScript for functionality -->
+</body>
+</html>

@@ -1,0 +1,291 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ensure the body takes up the full viewport height */
+  }
+  
+.container {
+    width: 80%;
+    max-width: 800px;
+    padding: 20px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Enables vertical scrolling */
+    max-height: 80%; /* Set a maximum height */
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+  
+  #title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  input[type="text"], select, input[type="submit"] {
+    padding: 10px;
+    width: calc(33.33% - 10px);
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  select {
+    margin-right: 0;
+  }
+  
+  input[type="submit"] {
+    background-color: #f0b457;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: calc(33.33% - 10px);
+    transition: background-color 0.3s ease;
+  }
+  
+  input[type="submit"]:hover {
+    background-color: #df8729;
+  }
+  
+  .form-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 35px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  #myPieChart {
+    width: 120%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 9999;
+  }
+  
+  .loading-image {
+    max-width: 350px;
+    max-height: 350px;
+  }
+  
+ /* Add keyframes for the wavy animation */
+@keyframes wave {
+  0% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+  100% { transform: rotate(-5deg); }
+}
+
+.loading-text {
+  color: #fff;
+  font-size: 24px;
+  margin-top: 20px;
+  animation: wave 3s infinite; /* Apply the animation */
+}
+
+.title-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Take up full height of parent */
+  position: relative; /* Required for pseudo-element */
+  padding: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 10px;
+}
+
+.title-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 10px; /* Adjust shadow height as needed */
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.1), rgba(240, 180, 87, 1));
+  pointer-events: none; /* Ensure the pseudo-element doesn't interfere with clicks */
+}
+
+
+.title-container .top-section {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center horizontally */
+}
+
+.title-container img {
+  width: 70px; /* Adjust image width as needed */
+  margin-right: 10px; /* Adjust margin as needed */
+}
+
+.title-container h1 {
+  margin-top: 25px;
+}
+
+.top-section {
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0px;
+}
+
+#p-bottom-section {
+  margin-top: 0px;
+}
+
+/* Modal container */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Hide the scrollbars */
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease; /* Smooth transition */
+}
+
+/* Modal content */
+.modal-content {
+  background-color: #f9f9f9; /* Lighter background */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Soft shadow */
+  max-width: 600px; /* Set a specific width */
+  overflow-y: auto; /* Enable vertical scrollbar for content only */
+  max-height: 80%; /* Calculate maximum height for content */
+  position: relative;
+  transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth transitions */
+  padding-left: 0px;
+}
+
+
+/* Close button */
+.close {
+  color: #666;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  transition: color 0.3s ease; /* Smooth transition */
+}
+
+.close:hover,
+.close:focus {
+  color: #333; /* Darker color on hover/focus */
+  text-decoration: none;
+  cursor: pointer;
+  outline: none; /* Ensure outline does not reappear on focus */
+}
+
+/* Modal label */
+#modalLabel {
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font stack */
+  font-size: 28px;
+  color: #333;
+  padding-left: 25px;
+  margin-top: 0px;
+}
+
+/* Modal content list */
+#modalContent li {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd; /* Lighter border */
+}
+
+#modalContent li:last-child {
+  border-bottom: none;
+}
+
+/* Link within modal */
+#modalContent li a {
+  color: #000; /* Black color */
+  text-decoration: none;
+  transition: color 0.3s ease; /* Smooth transition */
+}
+
+#modalContent li a:hover {
+  color: #999; /* Darker color on hover */
+}
+
+.footer {
+  text-align: center; /* Aligning the text and icons to the center */
+  margin-top: 25px;
+}
+
+.footer p {
+  margin: 0; /* Removing margin for the text */
+}
+
+.footer-icons {
+  margin-top: 10px; /* Adding some space between the text and icons */
+}
+
+.footer-icons a {
+  display: inline-block; /* Displaying icons inline */
+  margin: 0 10px; /* Adding space between icons */
+}
+
+.footer-icons img {
+  width: 30px; /* Setting width of icons */
+  height: auto; /* Maintaining aspect ratio */
+}
+
+.rednotification, .yellownotification, .greennotification {
+  position: fixed;
+  top: -100px; /* Initially hide notification off-screen */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #f44336;
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: top 0.5s ease;
+}
+
+.rednotification {
+  background-color: #f44336;
+}
+
+.yellownotification {
+  background-color: #ffeb3b;
+}
+
+.greennotification {
+  background-color: #4caf50;
+}
+.rednotification.show, .yellownotification.show, .greennotification.show {
+  top: 10px;
+}
+
+#rednotificationText, #yellownotificationText, #greennotificationText {
+  color: #f2f2f2;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 1); /* Horizontal shadow, Vertical shadow, Blur radius, Shadow color */
+}

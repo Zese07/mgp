@@ -38,7 +38,6 @@ var options = {
         
         if (value === undefined || value === 0) {
             return;}
-        console.log("In click", label, value);
         clickPie(label.toLowerCase() === 'on-hold' ? 'on_hold' : label.toLowerCase() === 'plan to watch' ? 'plan_to_watch' : label.toLowerCase());
     },
     plugins: {

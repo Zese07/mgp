@@ -23,15 +23,22 @@ router.get('/total/:genreId/unexplored', async (req, res) => {
     const exploredIds = req.query.array ? req.query.array.split(',') : [];
     let page = req.query.page || 1;
 
-    const fetch = await import('node-fetch');
     let allAnime = [];
+    let retries = 0;
 
     while (true) {
       const apiUrl = `https://api.jikan.moe/v4/anime?genres=${genreId}&page=${page}&limit=25`;
 
-      const response = await fetch.default(apiUrl);
+      const response = await fetch(apiUrl);
       if (!response.ok) {
-        throw new Error(`Failed to fetch anime data. Status: ${response.status}`);
+        if (response.status === 429 && retries < 3) {
+          const retryAfter = response.headers.get('Retry-After') || 1;
+          await new Promise(resolve => setTimeout(resolve, retryAfter * 1000 * Math.pow(2, retries)));
+          retries++;
+          continue;
+        } else {
+          throw new Error(`Failed to fetch anime data. Status: ${response.status}`);
+        }
       }
 
       const data = await response.json();

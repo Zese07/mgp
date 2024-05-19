@@ -134,7 +134,7 @@ async function fetchAndDisplayTitles(status, statusMessage) {
         notificationText.textContent = message;
         notification.classList.add('show');
 
-        const response = await fetch(`http://localhost:3000/profile/stats/${malUsername}/${status}/title/${selectedGenreId}`);
+        const response = await fetch(`https://malgenrepie.onrender.com/profile/stats/${malUsername}/${status}/title/${selectedGenreId}`);
         if (!response.ok) {
             throw new Error(`Failed to fetch ${status} titles`);
         }

@@ -185,7 +185,17 @@ async function submitButton() {
     malUsername = document.getElementById('malUsernameInput').value;
     
     if (!malUsername) {
-        alert("Please enter your MyAnimeList username.");
+        document.getElementById('loadingScreen').style.display = 'none';
+        setTimeout(() => {
+            var message = "Please enter your MyAnimeList username.";
+            var rednotification = document.getElementById('rednotification');
+            var rednotificationText = document.getElementById('rednotificationText');
+            rednotificationText.textContent = message || "Default notification message";
+            rednotification.classList.add('show');
+            setTimeout(function() {
+                closeNotification("red");
+            }, 3000);
+        }, 20);
         return;
     }
 

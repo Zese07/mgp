@@ -204,7 +204,7 @@ async function submitButton() {
         if (response.status === 500) {
             document.getElementById('loadingScreen').style.display = 'none';
             setTimeout(() => {
-                var message = malUsername + "is not a valid MyAnimeList username.";
+                var message = malUsername + " is not a valid MyAnimeList username.";
                 var rednotification = document.getElementById('rednotification');
                 var rednotificationText = document.getElementById('rednotificationText');
                 rednotificationText.textContent = message || "Default notification message";

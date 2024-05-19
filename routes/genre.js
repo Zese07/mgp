@@ -35,7 +35,8 @@ router.get('/total/:genreId/unexplored', async (req, res) => {
         break;
       }
 
-      const filteredData = data.data.filter(anime => !exploredIds.includes(anime.mal_id.toString()));
+      const filteredData = data.data.filter(anime => !exploredIds.map(id => id.trim()).includes(anime.mal_id.toString().trim()));
+
 
       const animeDetails = filteredData.map(anime => ({
         title: anime.title,
@@ -60,7 +61,7 @@ router.get('/total/:genreId/unexplored', async (req, res) => {
 });
 
 async function fetchWithRetries(url, retries = 3) {
-  let retryDelay = 1000;
+  let retryDelay = 1000; // Initial delay in milliseconds
   for (let i = 0; i < retries; i++) {
     try {
       const response = await fetch(url);
@@ -80,7 +81,7 @@ async function fetchWithRetries(url, retries = 3) {
       if (i < retries - 1) {
         console.log(`Retrying in ${retryDelay} milliseconds...`);
         await new Promise(resolve => setTimeout(resolve, retryDelay));
-        retryDelay *= 2; 
+        retryDelay *= 2;
       } else {
         throw error;
       }

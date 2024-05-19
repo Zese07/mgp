@@ -1,16 +1,16 @@
 var malUsername = "";
 var selectedGenreId = 0;
-var watching = 0;
-var completed = 0;
-var on_hold = 0;
-var dropped = 0;
-var plan_to_watch = 0;
-var unexplored = 0;
+var watching = 1;
+var completed = 1;
+var on_hold = 1;
+var dropped = 1;
+var plan_to_watch = 1;
+var unexplored = 1;
 var explored_ids;
 var watching_array = [];
 var completed_array = [];
 var on_hold_array = [];
-var dropped_hold_array = [];
+var dropped_array = [];
 var plan_to_watch_array = [];
 var unexplored_array = [];
 
@@ -26,10 +26,19 @@ var data = {
 var options = {
     responsive: false,
     onClick: (e, activeEls) => {
+        if (!activeEls || activeEls.length === 0) {
+            return;}
         let datasetIndex = activeEls[0].datasetIndex;
         let dataIndex = activeEls[0].index;
+
+        if (datasetIndex === undefined || dataIndex === undefined) {
+            return;}
         let value = e.chart.data.datasets[datasetIndex].data[dataIndex];
         let label = e.chart.data.labels[dataIndex];
+        
+        if (value === undefined || value === 0) {
+            return;}
+        console.log("In click", label, value);
         clickPie(label.toLowerCase() === 'on-hold' ? 'on_hold' : label.toLowerCase() === 'plan to watch' ? 'plan_to_watch' : label.toLowerCase());
     },
     plugins: {

@@ -29,7 +29,6 @@ var options = {
         let dataIndex = activeEls[0].index;
         let value = e.chart.data.datasets[datasetIndex].data[dataIndex];
         let label = e.chart.data.labels[dataIndex];
-        console.log("In click", label, value);
         clickPie(label.toLowerCase() === 'on-hold' ? 'on_hold' : label.toLowerCase() === 'plan to watch' ? 'plan_to_watch' : label.toLowerCase());
     },
     plugins: {
@@ -78,14 +77,11 @@ var genres = {
 };
 
 async function clickPie(label) {
-    console.log(label);
-  
     let titles = [];
   
     try {
         
         titles = window[`${label}_array`];
-        console.log(titles)
 
         const modal = document.getElementById("myModal");
         const modalLabel = document.getElementById("modalLabel");
@@ -144,11 +140,10 @@ async function fetchAndDisplayTitles(status, statusMessage) {
         }
         window[`${status}_array`] = await response.json();
 
-        closeNotification(status); // assuming you have a closeNotification function
+        closeNotification(status); 
 
     } catch (error) {
         console.error(`Error fetching ${status} titles:`, error);
-        // Handle error: Display error message to the user, or take appropriate action.
     }
 }
 
@@ -165,7 +160,7 @@ async function getAnimeTitles(){
     yellownotificationText.textContent = message || "Default notification message";
     yellownotification.classList.add('show');
     
-    const titleResponse = await fetch(`http://localhost:3000/genre/total/${selectedGenreId}/unexplored?array=${explored_ids}`);
+    const titleResponse = await fetch(`https://malgenrepie.onrender.com/genre/total/${selectedGenreId}/unexplored?array=${explored_ids}`);
     const title = await titleResponse.json();
     unexplored_array = title;
 
@@ -200,14 +195,10 @@ async function submitButton() {
     }
 
     document.getElementById('loadingScreen').style.display = 'flex';
-
-    console.log("MAL Username:", malUsername);
-
     selectedGenreId = document.getElementById("genres").value;
-    console.log("Selected Genre ID:", selectedGenreId);
 
     try {
-        const response = await fetch(`http://localhost:3000/profile/stats/${malUsername}`);
+        const response = await fetch(`https://malgenrepie.onrender.com/profile/stats/${malUsername}`);
         if (response.status === 500) {
             document.getElementById('loadingScreen').style.display = 'none';
             setTimeout(() => {
@@ -227,15 +218,12 @@ async function submitButton() {
             throw new Error('Failed to fetch profile stats: ' + response.status);
         }
         const profile_total = await response.json();
-        console.log(profile_total);
 
-        const genreResponse = await fetch(`http://localhost:3000/genre/total/${selectedGenreId}`);
+        const genreResponse = await fetch(`https://malgenrepie.onrender.com/genre/total/${selectedGenreId}`);
         const genre_total = await genreResponse.json();
-        console.log(genre_total);
 
-        const profileGenreResponse = await fetch(`http://localhost:3000/profile/stats/${malUsername}/watching,completed,on_hold,dropped,plan_to_watch/${selectedGenreId}`);
+        const profileGenreResponse = await fetch(`https://malgenrepie.onrender.com/profile/stats/${malUsername}/watching,completed,on_hold,dropped,plan_to_watch/${selectedGenreId}`);
         const profile_genre_total = await profileGenreResponse.json();
-        console.log(profile_genre_total);
 
         watching = profile_genre_total.counts.watching;
         completed = profile_genre_total.counts.completed;
@@ -253,8 +241,6 @@ async function submitButton() {
     } catch (error) {
         console.error('Error fetching profile stats:', error.message);
     }
-
-    // Hide loading screen
     document.getElementById('loadingScreen').style.display = 'none';
 }
 

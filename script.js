@@ -18,7 +18,7 @@ var data = {
     labels: ['Watching', 'Completed', 'On-Hold', 'Dropped', 'Plan to Watch', 'Unexplored'],
     datasets: [{
         data: [watching, completed, on_hold, dropped, plan_to_watch, unexplored],
-        backgroundColor: ['red', 'blue', 'green', 'yellow', 'orange', 'purple']
+        backgroundColor: ['green', 'blue', 'yellow', 'red', 'gray', 'purple']
     }]
 };
 
@@ -195,6 +195,7 @@ async function submitButton() {
     }
 
     document.getElementById('loadingScreen').style.display = 'flex';
+    var selectedGenreName = select.options[select.selectedIndex].text;
     selectedGenreId = document.getElementById("genres").value;
 
     try {
@@ -234,6 +235,8 @@ async function submitButton() {
         explored_ids = profile_genre_total.explored;
         
         myPieChart.data.datasets[0].data = [watching, completed, on_hold, dropped, plan_to_watch, unexplored];
+        var pieTitleElement = document.querySelector('.pieTitle');
+        pieTitleElement.textContent = selectedGenreName + " Stats";
         myPieChart.update();
 
         getAnimeTitles();

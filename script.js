@@ -18,7 +18,8 @@ var data = {
     labels: ['Watching', 'Completed', 'On-Hold', 'Dropped', 'Plan to Watch', 'Unexplored'],
     datasets: [{
         data: [watching, completed, on_hold, dropped, plan_to_watch, unexplored],
-        backgroundColor: ['green', 'blue', 'yellow', 'red', 'gray', 'purple']
+        backgroundColor: ['green', 'blue', 'yellow', 'red', 'gray', 'purple'],
+        weight: 0.1
     }]
 };
 
@@ -234,13 +235,30 @@ async function submitButton() {
         unexplored = genre_total - Object.values(profile_genre_total.counts).reduce((total, count) => total + count, 0);
         explored_ids = profile_genre_total.explored;
         
-        myPieChart.data.datasets[0].data = [watching, completed, on_hold, dropped, plan_to_watch, unexplored];
+        function updatePieChartData(chart, data) {
+            chart.data.datasets[0].data = data;
+            chart.update();
+        }
+        
+        var initialData = [watching, completed, on_hold, dropped, plan_to_watch, unexplored];
         var pieTitleElement = document.querySelector('.pieTitle');
         pieTitleElement.textContent = selectedGenreName + " Stats";
-        myPieChart.update();
 
+        var animationDelay = 1000; 
+        var updatedData = Array(initialData.length).fill(0); 
+
+        initialData.forEach((value, index) => {
+            setTimeout(() => {
+                updatedData[index] = value;
+                updatePieChartData(myPieChart, updatedData);
+                if (index === initialData.length - 1) {
+                    pieTitleElement.textContent = selectedGenreName + " Stats";
+                }
+            }, (index + 1) * animationDelay);
+        });
+        
         getAnimeTitles();
-
+        
     } catch (error) {
         console.error('Error fetching profile stats:', error.message);
     }

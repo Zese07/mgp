@@ -10,15 +10,14 @@ body {
   }
   
 .container {
-    width: 80%;
-    max-width: 800px;
+    width: 70%;
     padding: 20px;
     text-align: center;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow-y: auto; /* Enables vertical scrolling */
-    max-height: 80%; /* Set a maximum height */
+    max-height: 90%; /* Set a maximum height */
     padding-left: 0px;
     padding-right: 0px;
 }
@@ -66,8 +65,8 @@ body {
   }
   
   #myPieChart {
-    width: 120%;
-    max-width: 400px;
+    width: 100%;
+    max-width: 350px;
     margin: 0 auto;
   }
   

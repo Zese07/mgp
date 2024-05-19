@@ -23,24 +23,12 @@ router.get('/total/:genreId/unexplored', async (req, res) => {
     const exploredIds = req.query.array ? req.query.array.split(',') : [];
     let page = req.query.page || 1;
 
-    let allAnime = [];
-    let retries = 0;
+    const allAnime = [];
 
     while (true) {
       const apiUrl = `https://api.jikan.moe/v4/anime?genres=${genreId}&page=${page}&limit=25`;
 
-      const response = await fetch(apiUrl);
-      if (!response.ok) {
-        if (response.status === 429 && retries < 3) {
-          const retryAfter = response.headers.get('Retry-After') || 1;
-          await new Promise(resolve => setTimeout(resolve, retryAfter * 1000 * Math.pow(2, retries)));
-          retries++;
-          continue;
-        } else {
-          throw new Error(`Failed to fetch anime data. Status: ${response.status}`);
-        }
-      }
-
+      const response = await fetchWithRetries(apiUrl);
       const data = await response.json();
 
       if (!data.data || data.data.length === 0) {
@@ -54,7 +42,7 @@ router.get('/total/:genreId/unexplored', async (req, res) => {
         id: anime.mal_id
       }));
 
-      allAnime = allAnime.concat(animeDetails);
+      allAnime.push(...animeDetails);
 
       if (!data.pagination || !data.pagination.has_next_page) {
         break;
@@ -70,5 +58,34 @@ router.get('/total/:genreId/unexplored', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+async function fetchWithRetries(url, retries = 3) {
+  let retryDelay = 1000;
+  for (let i = 0; i < retries; i++) {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        if (response.status === 429) {
+          const retryAfter = parseInt(response.headers.get('Retry-After')) || 1;
+          console.log(`Rate limited. Retrying after ${retryAfter} seconds...`);
+          await new Promise(resolve => setTimeout(resolve, retryAfter * 1000));
+          continue;
+        } else {
+          throw new Error(`Failed to fetch data. Status: ${response.status}`);
+        }
+      }
+      return response;
+    } catch (error) {
+      console.error(`Error fetching data: ${error.message}`);
+      if (i < retries - 1) {
+        console.log(`Retrying in ${retryDelay} milliseconds...`);
+        await new Promise(resolve => setTimeout(resolve, retryDelay));
+        retryDelay *= 2; 
+      } else {
+        throw error;
+      }
+    }
+  }
+}
 
 module.exports = router;

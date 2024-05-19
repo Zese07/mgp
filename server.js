@@ -10,6 +10,8 @@ app.use(cors()); // Use cors middleware to handle CORS headers
 app.use('/genre', require('./routes/genre'));
 app.use('/profile', require('./routes/profile'));
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'src')));
 
 app.get('/', (req, res) => {

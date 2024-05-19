@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MAL Genre Pie</title>
   <link rel="icon" href="./img/icon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css"> <!-- External CSS for styling -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 </head>
@@ -30,13 +30,19 @@
     <canvas id="myPieChart" height="400"></canvas>
   
     <div class="footer">
-      
       <div class="footer-icons">
         <a href="https://github.com/Zese07/mgp" target="_blank"><img src="./img/github.png" alt="GitHub"></a>
+        <span class="footer-text">Development</span>
+        <span class="separator" style="margin-right: 30px; margin-left: 30px;"></span>
         <a href="https://myanimelist.net/apiconfig/references/api/v2" target="_blank"><img src="./img/mal.png" alt="MyAnimeList"></a>
         <a href="https://jikan.moe/" target="_blank"><img src="./img/jikan.png" alt="Jikan"></a>
+        <span class="footer-text">API</span>
+        <span class="separator" style="margin-left: 30px; margin-right: 30px;"></span>
+        <a href="https:/myanimelist.net/profile/EsieEyen" target="_blank"><img src="./img/me.png" alt="Me"></a>
+        <span class="footer-text">Visit me on MAL</span>
       </div>
-    </div>    
+    </div>
+      
 
 </div>
 
@@ -65,6 +71,6 @@
   <span id="greennotificationText"></span>
 </div>
 
-  <script src="script.js"></script> 
+  <script src="script.js"></script>
 </body>
 </html>

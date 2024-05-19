@@ -6,7 +6,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Ensure the body takes up the full viewport height */
+    height: 100vh; 
   }
   
 .container {
@@ -16,8 +16,8 @@ body {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow-y: auto; /* Enables vertical scrolling */
-    max-height: 90%; /* Set a maximum height */
+    overflow-y: auto; 
+    max-height: 90%;
     padding-left: 0px;
     padding-right: 0px;
 }
@@ -89,7 +89,6 @@ body {
     max-height: 350px;
   }
   
- /* Add keyframes for the wavy animation */
 @keyframes wave {
   0% { transform: rotate(-5deg); }
   50% { transform: rotate(5deg); }
@@ -100,14 +99,14 @@ body {
   color: #fff;
   font-size: 24px;
   margin-top: 20px;
-  animation: wave 3s infinite; /* Apply the animation */
+  animation: wave 3s infinite; 
 }
 
 .title-container {
   display: flex;
   flex-direction: column;
-  height: 100%; /* Take up full height of parent */
-  position: relative; /* Required for pseudo-element */
+  height: 100%; 
+  position: relative; 
   padding: 0px;
   margin-left: 0px;
   margin-right: 0px;
@@ -120,21 +119,21 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 10px; /* Adjust shadow height as needed */
+  height: 10px; 
   background: linear-gradient(to right, rgba(0, 0, 0, 0.1), rgba(240, 180, 87, 1));
-  pointer-events: none; /* Ensure the pseudo-element doesn't interfere with clicks */
+  pointer-events: none; 
 }
 
 
 .title-container .top-section {
   display: flex;
   align-items: center;
-  justify-content: center; /* Center horizontally */
+  justify-content: center; 
 }
 
 .title-container img {
-  width: 100px; /* Adjust image width as needed */
-  margin-right: 10px; /* Adjust margin as needed */
+  width: 100px; 
+  margin-right: 10px; 
 }
 
 .title-container h1 {
@@ -151,7 +150,6 @@ body {
   margin-top: 0px;
 }
 
-/* Modal container */
 .modal {
   display: none;
   position: fixed;
@@ -160,25 +158,25 @@ body {
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden; /* Hide the scrollbars */
-  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+  overflow: hidden; 
+  background-color: rgba(0, 0, 0, 0.6); 
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.3s ease; /* Smooth transition */
+  transition: opacity 0.3s ease; 
 }
 
 /* Modal content */
 .modal-content {
-  background-color: #f9f9f9; /* Lighter background */
+  background-color: #f9f9f9; 
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Soft shadow */
-  max-width: 600px; /* Set a specific width */
-  overflow-y: auto; /* Enable vertical scrollbar for content only */
-  max-height: 80%; /* Calculate maximum height for content */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); 
+  max-width: 600px; 
+  overflow-y: auto; 
+  max-height: 80%; 
   position: relative;
-  transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth transitions */
+  transition: transform 0.3s ease, opacity 0.3s ease; 
   padding-left: 0px;
 }
 
@@ -195,76 +193,71 @@ body {
 
 .close:hover,
 .close:focus {
-  color: #333; /* Darker color on hover/focus */
+  color: #333; 
   text-decoration: none;
   cursor: pointer;
-  outline: none; /* Ensure outline does not reappear on focus */
+  outline: none;
 }
 
 /* Modal label */
 #modalLabel {
   text-align: center;
   margin-bottom: 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font stack */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
   font-size: 28px;
   color: #333;
   padding-left: 25px;
   margin-top: 0px;
 }
 
-/* Modal content list */
 #modalContent li {
   padding: 10px 0;
-  border-bottom: 1px solid #ddd; /* Lighter border */
+  border-bottom: 1px solid #ddd; 
 }
 
 #modalContent li:last-child {
   border-bottom: none;
 }
 
-/* Link within modal */
 #modalContent li a {
-  color: #000; /* Black color */
+  color: #000; 
   text-decoration: none;
-  transition: color 0.3s ease; /* Smooth transition */
+  transition: color 0.3s ease; 
 }
 
 #modalContent li a:hover {
-  color: #999; /* Darker color on hover */
+  color: #999; 
 }
 
 .footer {
   display: flex;
-  justify-content: center; /* Horizontally center content */
-  align-items: center; /* Vertically center content */
+  justify-content: center; 
+  align-items: center; 
   height: 50px;
-  margin-top: 50px;
 }
 
 .footer-icons {
   display: flex;
-  align-items: center; /* Center content vertically */
+  align-items: center; 
 }
 
 .footer-icons span {
-  margin: 0 5px; /* Adjust spacing */
+  margin: 0 5px; 
 }
-
 
 .footer p {
-  margin: 0; /* Removing margin for the text */
+  margin: 0; 
 }
 
-
 .footer-icons a {
-  display: inline-block; /* Displaying icons inline */
-  margin-left: 5px; /* Adding space between icons */
-  margin-right: 5px; /* Adding space between icons */
+  display: inline-block; 
+  margin-left: 5px; 
+  margin-right: 5px; 
 }
 
 .footer-icons img {
-  width: 25px; /* Setting width of icons */
-  height: auto; /* Maintaining aspect ratio */
+  width: 25px; 
+  height: auto; 
 }
 
 .footer-text {
@@ -272,14 +265,25 @@ body {
 }
 
 .separator {
-  border-left: 1px solid black; /* Vertical line */
-  height: 30px; /* Adjust height as needed */
+  border-left: 1px solid black; 
+  height: 30px;
   margin-right: 50px;
+}
+
+@media only screen and (max-width: 768px) {
+  .footer {
+    flex-direction: column; 
+    height: auto;
+  }
+
+  .separator {
+    display: none; 
+  }
 }
 
 .rednotification, .yellownotification, .greennotification {
   position: fixed;
-  top: -100px; /* Initially hide notification off-screen */
+  top: -100px; 
   left: 50%;
   transform: translateX(-50%);
   background-color: #f44336;
@@ -307,7 +311,7 @@ body {
 
 #rednotificationText, #yellownotificationText, #greennotificationText {
   color: #f2f2f2;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 1); /* Horizontal shadow, Vertical shadow, Blur radius, Shadow color */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 1); 
 }
 
 .pieTitle {

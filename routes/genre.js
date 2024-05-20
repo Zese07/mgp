@@ -61,7 +61,7 @@ router.get('/total/:genreId/unexplored', async (req, res) => {
 });
 
 async function fetchWithRetries(url, retries = 3) {
-  let retryDelay = 1000; // Initial delay in milliseconds
+  let retryDelay = 3000;
   for (let i = 0; i < retries; i++) {
     try {
       const response = await fetch(url);

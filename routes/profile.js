@@ -35,7 +35,7 @@ router.get('/stats/:username/:statuses/:genre_id', async (req, res) => {
 
   const fetchAnimeData = async (status) => {
     let totalCount = 0;
-    let exploredIds = []; // New array to store explored anime IDs
+    let exploredIds = []; 
 
     let offset = 0;
     const pageSize = 1000;
@@ -47,18 +47,14 @@ router.get('/stats/:username/:statuses/:genre_id', async (req, res) => {
         const response = await fetch.default(apiUrl, { headers });
         const data = await response.json();
 
-        // Check if there's no more data
         if (!data.data || data.data.length === 0) break;
 
-        // Filter anime entries for the current page by genre_id
         const pageAnimeData = data.data.filter(item => {
           return item.node.genres && item.node.genres.some(genre => genre.id === parseInt(genre_id));
         });
 
-        // Extract IDs of explored anime from the current page
         const pageExploredIds = pageAnimeData.map(item => item.node.id);
 
-        // Update total count
         totalCount += pageAnimeData.length;
         exploredIds = [...exploredIds, ...pageExploredIds];
 
@@ -75,13 +71,13 @@ router.get('/stats/:username/:statuses/:genre_id', async (req, res) => {
 
   const fetchCountsForAllStatuses = async () => {
     const allCounts = {};
-    let allExploredIds = []; // New array to store all explored anime IDs
+    let allExploredIds = [];
 
     for (const status of statusesArray) {
       try {
         const { totalCount, exploredIds } = await fetchAnimeData(status);
         allCounts[status] = totalCount;
-        allExploredIds = [...allExploredIds, ...exploredIds]; // Concatenate all explored IDs into one array
+        allExploredIds = [...allExploredIds, ...exploredIds]; 
       } catch (error) {
         console.error(error);
         res.status(500).json({ error: `Internal Server Error for status "${status}"` });
@@ -89,7 +85,6 @@ router.get('/stats/:username/:statuses/:genre_id', async (req, res) => {
       }
     }
 
-    // Sending the transformed response
     res.json({ counts: allCounts, explored: allExploredIds.join(', ') });
   };
 
@@ -118,10 +113,8 @@ router.get('/stats/:username/:status/title/:genre_id', async (req, res) => {
         const response = await fetch.default(apiUrl, { headers });
         const data = await response.json();
 
-        // Check if there's no more data
         if (!data.data || data.data.length === 0) break;
 
-        // Filter anime entries by genre_id and extract titles and ids from the current page
         const pageAnime = data.data
           .filter(item => item.node.genres && item.node.genres.some(genre => genre.id === parseInt(genre_id)))
           .map(item => ({
@@ -129,7 +122,6 @@ router.get('/stats/:username/:status/title/:genre_id', async (req, res) => {
             id: item.node.id
           }));
 
-        // Concatenate anime data to the existing list
         animeList = [...animeList, ...pageAnime];
 
         offset += pageSize;
